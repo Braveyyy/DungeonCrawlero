@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public DungeonGenerator dg;
+    private DungeonGenerator dg;
     private bool doorActive = true;
     private bool playerInRange = false;
 
-
+    private void Start() {
+        dg = GameObject.FindGameObjectWithTag("Dungeon Generator").GetComponent<DungeonGenerator>();
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

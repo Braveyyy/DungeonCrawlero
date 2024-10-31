@@ -6,6 +6,7 @@ TagManager:
   tags:
   - diagonal
   - Skeleton
+  - Dungeon Generator
   layers:
   - Default
   - TransparentFX

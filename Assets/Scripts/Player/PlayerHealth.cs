@@ -29,6 +29,15 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void healPlayer(float heal) {
+        if((currentHealth + heal) > maxHealth) {
+            currentHealth += maxHealth - currentHealth;
+        }
+        else {
+            currentHealth += heal;
+        }
+    }
+
     private void playerDie()
     {
         //GameObject.FindGameObjectWithTag("Player").SetActive(false);

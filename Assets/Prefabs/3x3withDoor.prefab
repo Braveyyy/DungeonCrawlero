@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonPrefab: {fileID: 2375233112812576194, guid: b5d6624b75f43aa4ba63085df07da7af, type: 3}
-  numberOfSkeletons: 0
+  numberOfSkeletons: 1
 --- !u!1 &4821929080084160985
 GameObject:
   m_ObjectHideFlags: 0

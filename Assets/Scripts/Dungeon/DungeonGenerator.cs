@@ -98,14 +98,14 @@ public class DungeonGenerator : MonoBehaviour
             if(currentRoom >= 0 && currentRoom < spawnedRooms.Count) {
                 Vector3 targetRoomPosition = spawnedRooms[currentRoom].transform.position;
                 Vector3 playerTargetPosition;
-                //Debug.Log("currentroom index: " + currentRoom);
+                Debug.Log("currentroom index: " + currentRoom);
                 if(spawnedRooms[currentRoom].tag == "diagonal") {
                     playerTargetPosition = new Vector3(targetRoomPosition.x - 4, targetRoomPosition.y - 6 + playerHeightOffset, targetRoomPosition.z - 8);
-                    //Debug.Log("Teleporting player to diagonal room" + playerTargetPosition);
+                    Debug.Log("Teleporting player to diagonal room" + playerTargetPosition);
                 }
                 else {
                     playerTargetPosition = new Vector3(targetRoomPosition.x, targetRoomPosition.y + playerHeightOffset, targetRoomPosition.z);
-                    //Debug.Log("Teleporting player to next room" + playerTargetPosition);
+                    Debug.Log("Teleporting player to next room" + playerTargetPosition);
 
                 }
                 CharacterController cc = player.GetComponent<CharacterController>();
