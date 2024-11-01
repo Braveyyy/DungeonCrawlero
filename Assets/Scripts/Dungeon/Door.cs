@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private DungeonGenerator dg;
-    private bool doorActive = true;
+    public static bool doorActive = true;
     private bool playerInRange = false;
 
     private void Start() {

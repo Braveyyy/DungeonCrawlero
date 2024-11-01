@@ -7,7 +7,7 @@ public class Skeleton : MonoBehaviour
     private NavMeshAgent agent;
     private Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
-
+    private EnemyList enemyList;
     // Health
     public float skeletonHealth;
     private PlayerHealth playerHealth;
@@ -27,6 +27,7 @@ public class Skeleton : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
 
     private void Awake() {
+        enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
@@ -87,7 +88,7 @@ public class Skeleton : MonoBehaviour
             agent.isStopped = true;
             animator.SetTrigger("attacking");
             if(playerHealth != null) {
-                playerHealth.takeDamage(20);
+                Invoke(nameof(skeletonAttack), 1.5f);
             }
             alreadyAttacked = true;
             Invoke(nameof(resetAttack), timeBetweenAttacks);
@@ -108,7 +109,12 @@ public class Skeleton : MonoBehaviour
     }
 
     private void skeletonDie() {
+        enemyList.enemyKilled();
         Destroy(gameObject);
+    }
+
+    private void skeletonAttack() {
+        playerHealth.takeDamage(20);
     }
 
 

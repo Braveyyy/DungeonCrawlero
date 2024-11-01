@@ -7,6 +7,7 @@ TagManager:
   - diagonal
   - Skeleton
   - Dungeon Generator
+  - UI Enemy List
   layers:
   - Default
   - TransparentFX

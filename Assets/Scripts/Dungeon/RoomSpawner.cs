@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
-    // Reference to the skeleton prefab
     public GameObject skeletonPrefab;
-
-    // Optional: Specify how many skeletons to spawn
+    private EnemyList enemyList;
     public int numberOfSkeletons = 1;
-
-    // Boolean to check if skeletons have already been spawned
     private bool hasSpawned = false;
 
+    private void Start() {
+        enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         // Check if the player enters the collider
@@ -25,6 +24,7 @@ public class RoomSpawner : MonoBehaviour
 
     private void SpawnSkeletons()
     {
+        enemyList.createEnemyIcons(numberOfSkeletons);
         for (int i = 0; i < numberOfSkeletons; i++)
         {
             // Spawn the skeleton at a random position within the room
