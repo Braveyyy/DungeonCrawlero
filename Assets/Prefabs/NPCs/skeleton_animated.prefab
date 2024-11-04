@@ -1657,7 +1657,7 @@ MonoBehaviour:
   walkPointRange: 10
   timeBetweenAttacks: 5
   sightRange: 10
-  attackRange: 1
+  attackRange: 0.5
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!65 &68956654452005929

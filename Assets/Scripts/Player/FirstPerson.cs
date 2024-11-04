@@ -145,6 +145,9 @@ public class FirstPerson : MonoBehaviour
             if(hit.transform.TryGetComponent<Skeleton>(out Skeleton T)) {
                 T.takeDamage(attackDamage);
             }
+            else if(hit.transform.TryGetComponent<Floor10Boss>(out Floor10Boss B)) {
+                B.takeDamage(attackDamage);
+            }
         }
     }
     void HitTarget(Vector3 pos) {

@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Skeleton : MonoBehaviour
 {
+    // AI
     private NavMeshAgent agent;
     private Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
+
+    // UI
     private EnemyList enemyList;
+
     // Health
     public float skeletonHealth;
     private PlayerHealth playerHealth;
+
     // Animation
     private Animator animator;
-    // Patrolling
+
+    // Patroll
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
@@ -101,7 +107,6 @@ public class Skeleton : MonoBehaviour
 
     public void takeDamage(float damage) {
         skeletonHealth -= damage;
-        Debug.Log("Skeleton Takes Damage: " + skeletonHealth);
         if (skeletonHealth <= 0) {
             animator.SetTrigger("death");
             Invoke(nameof(skeletonDie), 3f);
