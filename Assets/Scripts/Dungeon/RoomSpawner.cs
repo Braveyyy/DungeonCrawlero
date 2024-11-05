@@ -7,6 +7,7 @@ public class RoomSpawner : MonoBehaviour
     public GameObject enemyPrefab;
     private EnemyList enemyList;
     public int numberOfEnemies = 1;
+    public bool spawningBoss = false;
     private bool hasSpawned = false;
 
     private void Start() {
@@ -23,7 +24,13 @@ public class RoomSpawner : MonoBehaviour
 
     private void spawnEnemies()
     {
-        enemyList.createEnemyIcons(numberOfEnemies);
+        if(spawningBoss) {
+            enemyList.createEnemyIcons(numberOfEnemies, true);
+        }
+        else {
+            enemyList.createEnemyIcons(numberOfEnemies, false);
+        }
+        
         for (int i = 0; i < numberOfEnemies; i++)
         {
             Vector3 spawnPosition = getRandomSpawnPosition();

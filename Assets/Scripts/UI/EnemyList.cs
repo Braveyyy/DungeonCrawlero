@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class EnemyList : MonoBehaviour
 {
     public GameObject enemyUIPrefab;
+    public GameObject bossUIPrefab;
     private List<GameObject> enemyIcons = new List<GameObject>();
     private int enemiesRemaining;
 
-    public void createEnemyIcons(int enemyCount) {
+    public void createEnemyIcons(int enemyCount, bool isBoss) {
         foreach (GameObject enemy in enemyIcons) {
             Destroy(enemy);
         }
@@ -17,9 +18,16 @@ public class EnemyList : MonoBehaviour
 
         enemiesRemaining = enemyCount;
         for(int i = 0; i < enemyCount; i++) {
-            GameObject enemyIcon = Instantiate(enemyUIPrefab, gameObject.transform);
-            enemyIcon.transform.localPosition = new Vector3(i * 50, -50, 0);
-            enemyIcons.Add(enemyIcon);
+            if(isBoss) {
+                GameObject enemyIcon = Instantiate(bossUIPrefab, gameObject.transform);
+                enemyIcon.transform.localPosition = new Vector3(i * 50, -50, 0);
+                enemyIcons.Add(enemyIcon);
+            } 
+            else {
+                GameObject enemyIcon = Instantiate(enemyUIPrefab, gameObject.transform);
+                enemyIcon.transform.localPosition = new Vector3(i * 50, -50, 0);
+                enemyIcons.Add(enemyIcon);
+            }
         }
     }
 

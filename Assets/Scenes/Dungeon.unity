@@ -3611,6 +3611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUIPrefab: {fileID: 3959530678444661603, guid: 3ecb3140b8d7cfc44aac9ea9be6801d4, type: 3}
+  bossUIPrefab: {fileID: 3959530678444661603, guid: b53e61b63a9c0fa4098a9b162db25977, type: 3}
 --- !u!1 &1980684667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,7 +3661,7 @@ MonoBehaviour:
   - {fileID: 2187748572522773791, guid: be616c12988f9ee4983e9e560ac80395, type: 3}
   - {fileID: 2763652738770994947, guid: eb657966dea0a8f43946daad2c001fa3, type: 3}
   - {fileID: 8405666239999441549, guid: e8e35b667ec45f443bd2ecc0a13fb509, type: 3}
-  numberOfRooms: 10
+  numberOfRooms: 11
   startRoomPrefab: {fileID: 8135629942963729054, guid: 350569f71f5a4cc4283f4cd789529f26, type: 3}
   lastRoomPrefab: {fileID: 8855693010773866504, guid: cde8c538049c78040b74f961d2317431, type: 3}
   floor10BossRoom: {fileID: 8862646819488996092, guid: dccef8509d3b670468739a65ec66980b, type: 3}
