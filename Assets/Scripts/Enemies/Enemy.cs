@@ -70,9 +70,14 @@ public class Enemy : MonoBehaviour
             chasePlayer();
         }
         if (playerInAttackRange && playerInSightRange) {
+            Debug.Log("setting iswalking to false.");
             animator.SetBool("isMoving", false);
             isWalking = false;
             attackPlayer();
+        }
+        if(isWalking) {
+            Debug.Log("iswalking = " + isWalking);
+            footstepAudio();
         }
     }
 
@@ -144,15 +149,16 @@ public class Enemy : MonoBehaviour
 
     // Enemy Audio
     private void footstepAudio() {
-        while(isWalking) {
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-            if(isSkeleton) {
-                audioSource.PlayOneShot(skeletonFootsteps);
-            }
-            else if(isFloor10Boss) {
-                audioSource.PlayOneShot(floor10BossFootsteps);
-            }
+        //audioSource.pitch = Random.Range(0.9f, 1.1f);
+        if(isSkeleton) {
+            audioSource.clip = skeletonFootsteps;
+            //audioSource.PlayOneShot(skeletonFootsteps);
+
         }
+        else if(isFloor10Boss) {
+            audioSource.clip = floor10BossFootsteps;
+        }
+        audioSource.Play();
     }
 
 }
