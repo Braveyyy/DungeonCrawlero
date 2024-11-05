@@ -4,8 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
+    // Differentiate between Enemy Types
+    public bool isSkeleton;
+    public bool isFloor10Boss;
     // Specific timers for each enemy
     public float deathTimer = 1f;
+
+    // Audio
+    private AudioSource audioSource;
+    public AudioClip floor10BossFootsteps;
+    public AudioClip skeletonFootsteps; 
 
     // AI
     private NavMeshAgent agent;
@@ -34,12 +42,14 @@ public class Enemy : MonoBehaviour
     // States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    public bool isWalking;
 
     private void Awake() {
         enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
     }
     private void Update() {
@@ -51,17 +61,22 @@ public class Enemy : MonoBehaviour
         }
         if (!playerInSightRange && !playerInAttackRange) {
             animator.SetBool("isMoving", true);
+            isWalking = true;
             patrol();
         }
         if (playerInSightRange && !playerInAttackRange) {
             animator.SetBool("isMoving", true);
+            isWalking = true;
             chasePlayer();
         }
         if (playerInAttackRange && playerInSightRange) {
             animator.SetBool("isMoving", false);
+            isWalking = false;
             attackPlayer();
         }
     }
+
+    // Enemy Movement
     private void patrol() {
         if (!walkPointSet) {
             searchWalkPoint();
@@ -88,6 +103,8 @@ public class Enemy : MonoBehaviour
     private void chasePlayer() {
         agent.SetDestination(playerTransform.position);
     }
+
+    // Enemy Attack / Damage Taken
     private void attackPlayer() {
         agent.SetDestination(transform.position);
         transform.LookAt(playerTransform);
@@ -125,5 +142,17 @@ public class Enemy : MonoBehaviour
         playerHealth.takeDamage(20);
     }
 
+    // Enemy Audio
+    private void footstepAudio() {
+        while(isWalking) {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            if(isSkeleton) {
+                audioSource.PlayOneShot(skeletonFootsteps);
+            }
+            else if(isFloor10Boss) {
+                audioSource.PlayOneShot(floor10BossFootsteps);
+            }
+        }
+    }
 
 }
