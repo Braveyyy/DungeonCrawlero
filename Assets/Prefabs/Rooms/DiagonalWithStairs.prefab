@@ -2575,8 +2575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66bcd5e5dbdc3344b66bf2b766b53e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonPrefab: {fileID: 2375233112812576194, guid: b5d6624b75f43aa4ba63085df07da7af, type: 3}
-  numberOfSkeletons: 2
+  enemyPrefab: {fileID: 2375233112812576194, guid: b5d6624b75f43aa4ba63085df07da7af, type: 3}
+  numberOfEnemies: 1
 --- !u!1 &2198730384856236047
 GameObject:
   m_ObjectHideFlags: 0

@@ -1586,7 +1586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2375233112813060578}
   - component: {fileID: 2375233112803192708}
-  - component: {fileID: -5205754373735617004}
+  - component: {fileID: 7211525539023734082}
   - component: {fileID: 68956654452005929}
   - component: {fileID: 7194281744585988017}
   m_Layer: 7
@@ -1634,7 +1634,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-5205754373735617004
+--- !u!114 &7211525539023734082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1643,7 +1643,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2375233112812576194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868b2e9cbd412ba498c60fe2746b3c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: fdcfbd3750b74374494bfa029af78e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsGround:
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
-  skeletonHealth: 100
+  enemyHealth: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
   timeBetweenAttacks: 5

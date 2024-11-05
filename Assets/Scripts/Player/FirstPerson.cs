@@ -36,12 +36,12 @@ public class FirstPerson : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
-        //animator = GetComponentInChildren<Animator>();
         Cursor.lockState = CursorLockMode.Locked;  // Lock the cursor to the screen
     }
 
     void Update()
     {
+        // Cursor Unlock for Menus
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Cursor.lockState = CursorLockMode.None;
         }
@@ -49,23 +49,21 @@ public class FirstPerson : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
  
-        // Mouse look
+        // Mouse Movement
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Rotate the player body left/right with mouse X
         transform.Rotate(Vector3.up * mouseX);
 
-        // Rotate the camera up/down with mouse Y
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Prevent over-rotating the camera
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // Player movement
+        // Player Movement
         float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right arrow keys
         float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down arrow keys
 
-        // Direction based on input
+        // Input Direction
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
         // Apply gravity (optional, adjust if you want jumping)
@@ -81,10 +79,8 @@ public class FirstPerson : MonoBehaviour
         moveDirection = move * speed;
         moveDirection.y = verticalVelocity;
 
-        // Move the player
         controller.Move(moveDirection * Time.deltaTime);
 
-        // Apply head bobbing
         ApplyHeadBobbing(moveX, moveZ);
 
         // Attacking
@@ -95,27 +91,22 @@ public class FirstPerson : MonoBehaviour
 
     void ApplyHeadBobbing(float moveX, float moveZ)
     {
-        // If the player is moving, apply head bobbing
         if (Mathf.Abs(moveX) > 0.1f || Mathf.Abs(moveZ) > 0.1f)
         {
             bobbingTimer += Time.deltaTime * headBobFrequency;
 
-            // Calculate new camera Y position based on a sine wave for smooth bobbing
             float bobbingOffset = Mathf.Sin(bobbingTimer) * headBobAmplitude;
 
-            // Adjust camera position
             Vector3 cameraPosition = cameraTransform.localPosition;
-            cameraPosition.y = 1.75f + bobbingOffset; // Adjust base height if needed
+            cameraPosition.y = 1.75f + bobbingOffset;
             cameraTransform.localPosition = cameraPosition;
         }
         else
         {
-            // Reset bobbing when player stops moving
             bobbingTimer = 0.0f;
 
-            // Reset camera to default position
             Vector3 cameraPosition = cameraTransform.localPosition;
-            cameraPosition.y = 1.75f; // Default Y position (adjust based on your setup)
+            cameraPosition.y = 1.75f; // Default Y position (adjust based on setup)
             cameraTransform.localPosition = cameraPosition;
         }
     }
@@ -140,13 +131,8 @@ public class FirstPerson : MonoBehaviour
     }
     void AttackRaycast() {
         if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, attackDistance, attackLayer)) {
-            //HitTarget(hit.point);
-
-            if(hit.transform.TryGetComponent<Skeleton>(out Skeleton T)) {
+            if(hit.transform.TryGetComponent<Enemy>(out Enemy T)) {
                 T.takeDamage(attackDamage);
-            }
-            else if(hit.transform.TryGetComponent<Floor10Boss>(out Floor10Boss B)) {
-                B.takeDamage(attackDamage);
             }
         }
     }

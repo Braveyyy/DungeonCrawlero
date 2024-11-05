@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
-public class Floor10Boss : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+    // Specific timers for each enemy
+    public float deathTimer = 1f;
+
     // AI
     private NavMeshAgent agent;
     private Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
 
+    // UI
+    private EnemyList enemyList;
+
     // Health
-    public float bossHealth;
+    public float enemyHealth;
     private PlayerHealth playerHealth;
 
     // Animation
@@ -31,6 +36,7 @@ public class Floor10Boss : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
 
     private void Awake() {
+        enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
@@ -39,7 +45,8 @@ public class Floor10Boss : MonoBehaviour
     private void Update() {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        if(bossHealth <= 0) {
+        
+        if(enemyHealth <= 0) {
             return;
         }
         if (!playerInSightRange && !playerInAttackRange) {
@@ -90,31 +97,33 @@ public class Floor10Boss : MonoBehaviour
             agent.isStopped = true;
             animator.SetTrigger("attacking");
             if(playerHealth != null) {
-                Invoke(nameof(bossAttack), 1.5f);
+                Invoke(nameof(enemyAttack), 1.5f);
             }
             alreadyAttacked = true;
             Invoke(nameof(resetAttack), timeBetweenAttacks);
         }
     }
-    
     private void resetAttack() {
         alreadyAttacked = false;
         agent.isStopped = false;
     }
 
     public void takeDamage(float damage) {
-        bossHealth -= damage;
-        if (bossHealth <= 0) {
+        enemyHealth -= damage;
+        if (enemyHealth <= 0) {
             animator.SetTrigger("death");
-            Invoke(nameof(bossDie), 3f);
+            Invoke(nameof(enemyDie), deathTimer);
         }
     }
 
-    private void bossAttack() {
-        playerHealth.takeDamage(40);
-    }
-
-    private void bossDie() {
+    private void enemyDie() {
+        enemyList.enemyKilled();
         Destroy(gameObject);
     }
+
+    private void enemyAttack() {
+        playerHealth.takeDamage(20);
+    }
+
+
 }
