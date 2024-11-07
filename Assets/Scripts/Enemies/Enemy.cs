@@ -51,6 +51,16 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
+        if(isSkeleton) {
+            Debug.Log("AudioSource.Clip set to skeleton");
+            audioSource.clip = skeletonFootsteps;
+
+        }
+        else if(isFloor10Boss) {
+            Debug.Log("AudioSource.Clip set to floor 10 boss");
+            audioSource.clip = floor10BossFootsteps;
+        }
+
     }
     private void Update() {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -150,14 +160,7 @@ public class Enemy : MonoBehaviour
     // Enemy Audio
     private void footstepAudio() {
         //audioSource.pitch = Random.Range(0.9f, 1.1f);
-        if(isSkeleton) {
-            audioSource.clip = skeletonFootsteps;
-            //audioSource.PlayOneShot(skeletonFootsteps);
-
-        }
-        else if(isFloor10Boss) {
-            audioSource.clip = floor10BossFootsteps;
-        }
+        Debug.Log("Playing enemy audiosource");
         audioSource.Play();
     }
 
