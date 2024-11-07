@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
+    private bool waitForNextWalkingIteration = false;
     // Differentiate between Enemy Types
     public bool isSkeleton;
     public bool isFloor10Boss;
@@ -14,6 +15,9 @@ public class Enemy : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip floor10BossFootsteps;
     public AudioClip skeletonFootsteps; 
+    public AudioClip floor10BossAttack;
+    public AudioClip skeletonAttack;
+    private AudioClip attackSFX;
 
     // AI
     private NavMeshAgent agent;
@@ -54,11 +58,13 @@ public class Enemy : MonoBehaviour
         if(isSkeleton) {
             Debug.Log("AudioSource.Clip set to skeleton");
             audioSource.clip = skeletonFootsteps;
+            attackSFX = skeletonAttack;
 
         }
         else if(isFloor10Boss) {
             Debug.Log("AudioSource.Clip set to floor 10 boss");
             audioSource.clip = floor10BossFootsteps;
+            attackSFX = floor10BossAttack;
         }
 
     }
@@ -85,9 +91,10 @@ public class Enemy : MonoBehaviour
             isWalking = false;
             attackPlayer();
         }
-        if(isWalking) {
+        if(isWalking && !waitForNextWalkingIteration) {
             Debug.Log("iswalking = " + isWalking);
             footstepAudio();
+            waitForNextWalkingIteration = true;
         }
     }
 
@@ -127,9 +134,10 @@ public class Enemy : MonoBehaviour
         if (!alreadyAttacked) {
             // attack code
             agent.isStopped = true;
+            audioSource.Stop();
             animator.SetTrigger("attacking");
             if(playerHealth != null) {
-                Invoke(nameof(enemyAttack), 1.5f);
+                Invoke(nameof(enemyAttack), 1f);
             }
             alreadyAttacked = true;
             Invoke(nameof(resetAttack), timeBetweenAttacks);
@@ -138,6 +146,7 @@ public class Enemy : MonoBehaviour
     private void resetAttack() {
         alreadyAttacked = false;
         agent.isStopped = false;
+        waitForNextWalkingIteration = false;
     }
 
     public void takeDamage(float damage) {
@@ -154,14 +163,20 @@ public class Enemy : MonoBehaviour
     }
 
     private void enemyAttack() {
+        playAttackAudio();
         playerHealth.takeDamage(20);
     }
 
     // Enemy Audio
     private void footstepAudio() {
-        //audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
         Debug.Log("Playing enemy audiosource");
         audioSource.Play();
+    }
+
+    private void playAttackAudio() {
+        Debug.Log("Playing attack SFX");
+        audioSource.PlayOneShot(attackSFX);
     }
 
 }

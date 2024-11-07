@@ -1649,9 +1649,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSkeleton: 1
   isFloor10Boss: 0
-  deathTimer: 1
-  floor10BossFootsteps: {fileID: 0}
+  deathTimer: 3
+  floor10BossFootsteps: {fileID: 8300000, guid: eec68e5b099e20e43b40fcd059aacc8f, type: 3}
   skeletonFootsteps: {fileID: 8300000, guid: bba0fd4db8684794bbf466163ce3aea3, type: 3}
+  floor10BossAttack: {fileID: 0}
+  skeletonAttack: {fileID: 8300000, guid: cbe9afdf3219cca48823d9047f471b3f, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 65
@@ -1661,7 +1663,7 @@ MonoBehaviour:
   enemyHealth: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
-  timeBetweenAttacks: 5
+  timeBetweenAttacks: 3
   sightRange: 10
   attackRange: 0.5
   playerInSightRange: 0
@@ -1722,7 +1724,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.293
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
