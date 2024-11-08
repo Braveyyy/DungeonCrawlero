@@ -17,7 +17,10 @@ public class Enemy : MonoBehaviour
     public AudioClip skeletonFootsteps; 
     public AudioClip floor10BossAttack;
     public AudioClip skeletonAttack;
+    public AudioClip floor10BossDeath;
+    public AudioClip skeletonDeath;
     private AudioClip attackSFX;
+    private AudioClip deathSFX;
 
     // AI
     private NavMeshAgent agent;
@@ -56,22 +59,22 @@ public class Enemy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         if(isSkeleton) {
-            Debug.Log("AudioSource.Clip set to skeleton");
             audioSource.clip = skeletonFootsteps;
             attackSFX = skeletonAttack;
+            deathSFX = skeletonDeath;
 
         }
         else if(isFloor10Boss) {
-            Debug.Log("AudioSource.Clip set to floor 10 boss");
             audioSource.clip = floor10BossFootsteps;
             attackSFX = floor10BossAttack;
+            deathSFX = floor10BossDeath;
         }
 
     }
     private void Update() {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
         if(enemyHealth <= 0) {
             return;
         }
@@ -86,13 +89,11 @@ public class Enemy : MonoBehaviour
             chasePlayer();
         }
         if (playerInAttackRange && playerInSightRange) {
-            Debug.Log("setting iswalking to false.");
             animator.SetBool("isMoving", false);
             isWalking = false;
             attackPlayer();
         }
         if(isWalking && !waitForNextWalkingIteration) {
-            Debug.Log("iswalking = " + isWalking);
             footstepAudio();
             waitForNextWalkingIteration = true;
         }
@@ -152,7 +153,9 @@ public class Enemy : MonoBehaviour
     public void takeDamage(float damage) {
         enemyHealth -= damage;
         if (enemyHealth <= 0) {
+            audioSource.Stop();
             animator.SetTrigger("death");
+            playDeathAudio();
             Invoke(nameof(enemyDie), deathTimer);
         }
     }
@@ -169,14 +172,15 @@ public class Enemy : MonoBehaviour
 
     // Enemy Audio
     private void footstepAudio() {
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
-        Debug.Log("Playing enemy audiosource");
         audioSource.Play();
     }
 
     private void playAttackAudio() {
-        Debug.Log("Playing attack SFX");
         audioSource.PlayOneShot(attackSFX);
+    }
+
+    private void playDeathAudio() {
+        audioSource.PlayOneShot(deathSFX);
     }
 
 }

@@ -1652,8 +1652,10 @@ MonoBehaviour:
   deathTimer: 3
   floor10BossFootsteps: {fileID: 8300000, guid: eec68e5b099e20e43b40fcd059aacc8f, type: 3}
   skeletonFootsteps: {fileID: 8300000, guid: bba0fd4db8684794bbf466163ce3aea3, type: 3}
-  floor10BossAttack: {fileID: 0}
+  floor10BossAttack: {fileID: 8300000, guid: 3a33ed6b199322946a962b050e99c818, type: 3}
   skeletonAttack: {fileID: 8300000, guid: cbe9afdf3219cca48823d9047f471b3f, type: 3}
+  floor10BossDeath: {fileID: 8300000, guid: 8f7010fca1a6a5045a2a3ec2be99b562, type: 3}
+  skeletonDeath: {fileID: 8300000, guid: 00009124d96bb014a8598ba64fc99ccd, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 65
