@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
-    private bool waitForNextWalkingIteration = false;
     // Differentiate between Enemy Types
     public bool isSkeleton;
     public bool isFloor10Boss;
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float deathTimer = 1f;
 
     // Audio
+    private bool waitForNextWalkingIteration = false;
     private AudioSource audioSource;
     public AudioClip floor10BossFootsteps;
     public AudioClip skeletonFootsteps; 
@@ -21,6 +23,10 @@ public class Enemy : MonoBehaviour
     public AudioClip skeletonDeath;
     private AudioClip attackSFX;
     private AudioClip deathSFX;
+    
+    // Drops
+    private PlayerGold playerGold;
+    public int goldDropAmount;
 
     // AI
     private NavMeshAgent agent;
@@ -53,6 +59,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake() {
         enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
+        playerGold = GameObject.FindGameObjectWithTag("UI Player Gold").GetComponent<PlayerGold>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
@@ -162,6 +169,7 @@ public class Enemy : MonoBehaviour
 
     private void enemyDie() {
         enemyList.enemyKilled();
+        dropGold();
         Destroy(gameObject);
     }
 
@@ -181,6 +189,13 @@ public class Enemy : MonoBehaviour
 
     private void playDeathAudio() {
         audioSource.PlayOneShot(deathSFX);
+    }
+
+    // Enemy Drops
+    private void dropGold() {
+        if(isSkeleton) {
+            playerGold.addGold(goldDropAmount);
+        }
     }
 
 }

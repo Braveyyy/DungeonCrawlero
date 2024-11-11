@@ -8,6 +8,7 @@ TagManager:
   - Skeleton
   - Dungeon Generator
   - UI Enemy List
+  - UI Player Gold
   layers:
   - Default
   - TransparentFX

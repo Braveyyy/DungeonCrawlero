@@ -1656,6 +1656,7 @@ MonoBehaviour:
   skeletonAttack: {fileID: 8300000, guid: cbe9afdf3219cca48823d9047f471b3f, type: 3}
   floor10BossDeath: {fileID: 8300000, guid: 8f7010fca1a6a5045a2a3ec2be99b562, type: 3}
   skeletonDeath: {fileID: 8300000, guid: 00009124d96bb014a8598ba64fc99ccd, type: 3}
+  goldDropAmount: 25
   whatIsGround:
     serializedVersion: 2
     m_Bits: 65
