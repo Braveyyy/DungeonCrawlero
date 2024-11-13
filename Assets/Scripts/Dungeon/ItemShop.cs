@@ -30,14 +30,26 @@ public class ItemShop : MonoBehaviour
     }
 
     public int getItemCosts(int itemStandNum) {
-        if(itemStandNum == 1) {
+        if (itemStandNum == 1) {
             return intPrices[0];
         }
-        else if(itemStandNum == 2) {
+        else if (itemStandNum == 2) {
             return intPrices[1];
         }
         else {
             return intPrices[2];
+        }
+    }
+
+    public Sprite getItemSprite(int itemStandNum) {
+        if (itemStandNum == 1) {
+            return availableItemSprites[0];
+        }
+        else if (itemStandNum == 2) {
+            return availableItemSprites[1];
+        }
+        else {
+            return availableItemSprites[2];
         }
     }
 }
