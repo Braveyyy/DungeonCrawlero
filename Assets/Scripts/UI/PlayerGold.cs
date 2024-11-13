@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class PlayerGold : MonoBehaviour
 {
     private int currentPlayerGold;
-    private TextMeshPro goldUI;
+    private TextMeshProUGUI goldUI;
     private void Awake() {
         currentPlayerGold = 0;
-        goldUI = GetComponent<TextMeshPro>();
+        goldUI = GetComponent<TextMeshProUGUI>();
         goldUI.text = "GOLD: " + currentPlayerGold;
     }
 

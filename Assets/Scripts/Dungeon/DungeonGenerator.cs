@@ -90,6 +90,10 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     playerTargetPosition = new Vector3(targetRoomPosition.x - 4, targetRoomPosition.y - 6 + playerHeightOffset, targetRoomPosition.z - 8);
                 }
+                else if(spawnedRooms[currentRoom].tag == "itemshop")
+                {
+                    playerTargetPosition = new Vector3(targetRoomPosition.x - 2, targetRoomPosition.y + playerHeightOffset, targetRoomPosition.z + 6);
+                }
                 else // regular teleport position
                 {
                     playerTargetPosition = new Vector3(targetRoomPosition.x, targetRoomPosition.y + playerHeightOffset, targetRoomPosition.z);

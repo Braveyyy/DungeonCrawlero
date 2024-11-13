@@ -9,6 +9,10 @@ TagManager:
   - Dungeon Generator
   - UI Enemy List
   - UI Player Gold
+  - itemshop
+  - Item1Stand
+  - Item2Stand
+  - Item3Stand
   layers:
   - Default
   - TransparentFX
