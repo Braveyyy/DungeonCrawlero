@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     public bool isFloor10Boss;
     // Specific timers for each enemy
     public float deathTimer = 1f;
-
+    // Light
+    private ExpandLight playerLight;
     // Audio
     private bool waitForNextWalkingIteration = false;
     private AudioSource audioSource;
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
         enemyList = GameObject.FindGameObjectWithTag("UI Enemy List").GetComponent<EnemyList>();
         playerGold = GameObject.FindGameObjectWithTag("UI Player Gold").GetComponent<PlayerGold>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerLight = GameObject.FindGameObjectWithTag("Player").transform.GetChild(1).GetComponent<ExpandLight>();
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -168,6 +170,9 @@ public class Enemy : MonoBehaviour
     }
 
     private void enemyDie() {
+        if(isFloor10Boss) {
+            playerLight.lightExpansion();
+        }
         enemyList.enemyKilled();
         dropGold();
         Destroy(gameObject);
